@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>车车 - 您的二手车销售顾问</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #f39c12;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-content {
+            flex: 1;
+            padding: 3rem;
+        }
+        
+        .hero-image {
+            flex: 1;
+            height: 400px;
+            background-image: url('https://source.unsplash.com/800x400/?car,luxury');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #e67e22;
+            transform: translateY(-2px);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .car-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .car-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .car-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .car-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .car-details {
+            padding: 1.5rem;
+        }
+        
+        .car-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .car-price {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .car-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* 聊天界面样式 */
+        .chat-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .message.user {
+            flex-direction: row-reverse;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin: 0 12px;
+        }
+        
+        .user .message-content {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .assistant .message-content {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+        
+        .chat-input {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .chat-input button {
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .chat-input button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .chat-input button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        /* 加载动画 */
+        .typing {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px;
+        }
+        
+        .typing span {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            animation: typing 1s infinite ease-in-out;
+        }
+        
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.5); }
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+        
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+            }
+            
+            .hero-content {
+                padding: 2rem;
+                order: 2;
+            }
+            
+            .hero-image {
+                height: 250px;
+                width: 100%;
+                order: 1;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .feature-card, .car-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">车车</div>
+        <div class="tagline">您的专属二手车销售顾问</div>
+    </header>
+    
+    <div class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>寻找理想二手车，从对话开始</h1>
+                <p>车车是一位智能的二手车销售顾问，随时准备回答您的问题，为您推荐最合适的二手车，并提供专业建议。</p>
+                <a href="#chatbot" class="cta-button">立即咨询</a>
+            </div>
+            <div class="hero-image"></div>
+        </section>
+        
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🚗</div>
+                <h2 class="feature-title">丰富的车型选择</h2>
+                <p>我们拥有多种品牌和车型的二手车，从经济实用到豪华精品，总有一款适合您。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h2 class="feature-title">智能对话体验</h2>
+                <p>通过自然语言与车车交流，随时获取您想了解的车辆信息和专业建议。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <h2 class="feature-title">品质保证</h2>
+                <p>所有车辆均经过严格检测，确保品质可靠，买车更放心。</p>
+            </div>
+        </section>
+        
+        <h1 style="text-align: center; margin: 2rem 0;">热门车型</h1>
+        
+        <section class="car-list">
+            <div class="car-card">
+                <div class="car-image" style="background-image: url('https://source.unsplash.com/800x600/?mercedes,c-class')"></div>
+                <div class="car-details">
+                    <h2 class="car-title">奔驰C级</h2>
+                    <div class="car-price">28-35万</div>
+                    <div class="car-info">
+                        <span class="car-info-item">年份: 2020</span>
+                        <span class="car-info-item">里程: 3万公里</span>
+                    </div>
+                    <div class="car-info">
+                        <span class="car-info-item">状况: 极好</span>
+                        <span class="car-info-item">颜色: 银色</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="car-card">
+                <div class="car-image" style="background-image: url('https://source.unsplash.com/800x600/?bmw,3-series')"></div>
+                <div class="car-details">
+                    <h2 class="car-title">宝马3系</h2>
+                    <div class="car-price">25-32万</div>
+                    <div class="car-info">
+                        <span class="car-info-item">年份: 2019</span>
+                        <span class="car-info-item">里程: 4.5万公里</span>
+                    </div>
+                    <div class="car-info">
+                        <span class="car-info-item">状况: 良好</span>
+                        <span class="car-info-item">颜色: 黑色</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="car-card">
+                <div class="car-image" style="background-image: url('https://source.unsplash.com/800x600/?audi,a4')"></div>
+                <div class="car-details">
+                    <h2 class="car-title">奥迪A4L</h2>
+                    <div class="car-price">22-30万</div>
+                    <div class="car-info">
+                        <span class="car-info-item">年份: 2019</span>
+                        <span class="car-info-item">里程: 5万公里</span>
+                    </div>
+                    <div class="car-info">
+                        <span class="car-info-item">状况: 良好</span>
+                        <span class="car-info-item">颜色: 白色</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="chatbot" class="chatbot-container">
+            <h1>与车车对话</h1>
+            <p>有任何问题？想了解更多车辆信息？车车随时为您服务！</p>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant">
+                        <div class="message-content">
+                            您好！我是二手车销售顾问车车，很高兴为您服务。请问您想了解哪些二手车信息呢？
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="userInput" placeholder="请输入您的问题..." onkeypress="handleKeyPress(event)">
+                    <button onclick="sendMessage()" id="sendButton">发送</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">关于我们</h3>
+                <p>我们是专业的二手车销售平台，致力于为客户提供优质、可靠的二手车和专业的购车服务。</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">联系方式</h3>
+                <ul class="footer-links">
+                    <li>电话: 400-888-8888</li>
+                    <li>邮箱: info@checha.com</li>
+                    <li>地址: 北京市朝阳区某某大厦</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">快速链接</h3>
+                <ul class="footer-links">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">车辆库存</a></li>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 车车二手车销售平台 版权所有
+        </div>
+    </footer>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        let isProcessing = false;
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !isProcessing) {
+                sendMessage();
+            }
+        }
+
+        function addMessage(content, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
+            messageDiv.innerHTML = `
+                <div class="message-content">${content}</div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message assistant';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <div class="message-content typing">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTyping() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message || isProcessing) return;
+
+            isProcessing = true;
+            sendButton.disabled = true;
+            userInput.value = '';
+
+            // 添加用户消息
+            addMessage(message, true);
+            showTyping();
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        messages: [{ role: 'user', content: message }]
+                    })
+                });
+
+                const data = await response.json();
+                removeTyping();
+
+                if (data.error) {
+                    addMessage(`抱歉，出现了一个错误：${data.error}`);
+                } else {
+                    addMessage(data.response);
+                }
+            } catch (error) {
+                removeTyping();
+                addMessage('抱歉，服务器连接失败，请稍后再试。');
+                console.error('Error:', error);
+            }
+
+            isProcessing = false;
+            sendButton.disabled = false;
+            userInput.focus();
+        }
+
+        // 检查服务器状态
+        async function checkServerHealth() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/health');
+                const data = await response.json();
+                if (!data.status === 'healthy') {
+                    addMessage('警告：服务器状态异常，可能影响对话质量。');
+                }
+            } catch (error) {
+                addMessage('无法连接到服务器，请确保服务器已启动。');
+            }
+        }
+
+        // 页面加载完成后检查服务器状态
+        window.onload = checkServerHealth;
+    </script>
+</body>
+</html> 
